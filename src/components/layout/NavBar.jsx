@@ -10,23 +10,22 @@ function NavBar(){
             <Link to="/">
                <img src={logo} alt="costs" />
             </Link>
-            <ul className={styles.list}>
-               <li>
-                  <Link to="/">Home</Link>
-               </li>
-               <li>
-                  <Link to="/projects">Projetos</Link>
-               </li>
-               <li>
-                  <Link to="/company">Empresa</Link>
-               </li>
-               <li>
-                  <Link to="/contact">Contato</Link>
-               </li>
-               {/* <li>
-                  <Link to="/newproject">Novo Projeto</Link>
-               </li> */}
-            </ul>
+            <nav>
+               <ul className={styles.list}>
+                  <li>
+                     <Link to="/">Home</Link>
+                  </li>
+                  <li>
+                     <Link to="/projects">Projetos</Link>
+                  </li>
+                  <li>
+                     <Link to="/company">Empresa</Link>
+                  </li>
+                  <li>
+                     <Link to="/contact">Contato</Link>
+                  </li>
+               </ul>
+            </nav>
         </Container>
       </header>
    )

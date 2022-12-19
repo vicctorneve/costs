@@ -5,14 +5,19 @@
    padding: 1em;
 }
 
-.list{
+nav{
    display: flex;
-   list-style: none;
    align-items: center;
+}
+
+.list{
+   list-style: none;
+   display: flex;
    gap: 1em;
 }
 
 .list a{
+   padding: .5em;
    color: #FFF;
    text-decoration: none;
 }

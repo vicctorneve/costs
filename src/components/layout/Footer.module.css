@@ -1,14 +1,16 @@
 .footer{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
    background-color: #222;
    color: #FFF;
-   padding: 3em;
-   text-align: center;
+   padding: 2em;
 }
 
 .social_list{
    display: flex;
    list-style-type: none;
-   justify-content: center;
 }
 
 .social_list li{
