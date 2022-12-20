@@ -13,6 +13,7 @@ function Projects(){
    const [projects, setProjects] = useState([])
    const [removeLoading, setRemoveLoading] = useState(false)
    const [projectMessage, setProjectMessage] = useState('');
+   const [error, setError] = useState(null);
 
    const location = useLocation();
    let message = ''
@@ -31,12 +32,24 @@ function Projects(){
                'Content-type': 'application/json'
             }
          })
-         .then(resp => resp.json())
+         .then(resp => {
+            if(resp.ok){
+              return resp.json()
+            }
+            throw resp
+         })
          .then(data =>{
             setProjects(data)
             setRemoveLoading(true)
          })
-         .catch(err => console.log(err))
+         .catch(err => {
+            console.log(err)
+            setError(err)
+            
+         })
+         .finally(() =>{
+            setRemoveLoading(true)
+         })
       },300)
    }, [])
 

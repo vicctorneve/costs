@@ -9,11 +9,13 @@ import Container from '../layout/Container'
 import ProjectForm from '../project/ProjectForm'
 import Message from '../layout/Message'
 import ServiceForm from '../service/SeviceForm'
+import ServiceCard from '../service/ServiceCard'
 
 function Project(){
 
    const {id} = useParams()
    const [project, setProject] = useState([])
+   const [services, setServices] = useState([])
    const [showProjectForm, setShowProjectForm] = useState(false)
    const [showSeviceForm, setShowSeviceForm] = useState(false)
    const [message, setMessage] = useState('');
@@ -31,6 +33,7 @@ function Project(){
          .then(resp => resp.json())
          .then(data => {
             setProject(data)
+            setServices(data.services)
          })
          .catch(err => console.log(err))
       },300)
@@ -64,6 +67,8 @@ function Project(){
 
    function createService(project){
       // last service
+      setMessage('')
+      
       const lastService = project.services[project.services.length - 1]
 
       lastService.id = uuidv4()
@@ -82,7 +87,7 @@ function Project(){
 
       // add service cost to project total cost
 
-      // project.cost = newCost
+      project.cost = newCost
 
       // update project
 
@@ -95,11 +100,43 @@ function Project(){
       })
       .then(resp => resp.json())
       .then(data =>{
+         setServices(data.services)
+         setShowSeviceForm(false)
+         setType('sucess')
+         setMessage('Serviço criado com sucesso!')
          // exbir o servicos
       })
       .catch(err => console.log(err))
 
       
+   }
+
+   function removeService(id,cost){
+      setMessage('')
+      const servicesUpdated = project.services.filter(
+         (service) => service.id !== id
+      )
+
+      const projectUpdated = project
+
+      projectUpdated.services = servicesUpdated
+      projectUpdated.cost = parseFloat(projectUpdated.cost) - parseFloat(cost)
+
+      fetch(`http://localhost:5000/projects/${projectUpdated.id}`,{
+         method: 'PATCH',
+         headers:{
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(projectUpdated)
+      })
+      .then(resp => resp.json())
+      .then(() =>{
+         setProject(projectUpdated)
+         setServices(servicesUpdated)
+         setType('sucess')
+         setMessage('Serviço removido com sucesso!')
+      })
+      .catch(err => console.log(err))
    }
 
    function toggleProjectForm(){
@@ -155,7 +192,19 @@ function Project(){
                   </div>
                   <h2>Serviços</h2>
                   <Container customClass="start">
-                     <p>Itens de serviços</p>
+                     {services.length > 0 &&
+                        services.map((service) =>(
+                           <ServiceCard
+                              id={service.id}
+                              name={service.name}
+                              cost={service.cost}
+                              description={service.description}
+                              key={service.id}
+                              handleRemove={removeService}
+                           />
+                        ))
+                     }
+                     {services.length === 0 && <p>Não há serviços cadastrados</p>}
                   </Container>
                </Container>
             </div>
