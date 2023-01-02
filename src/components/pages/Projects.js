@@ -84,7 +84,7 @@ function Projects(){
                      key={project.id} 
                      name={project.name}
                      budget={project.budget}
-                     category={project.category.name}
+                     category={project.category}
                      handleRemove={removeProject}
                   />
                ))

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import Input from '../form/Input'
 import SubmitButton from '../form/SubmitButton'
 
 import styles from './Service.module.css'
@@ -48,13 +47,6 @@ function ServiceForm({ handleSubmit, btnText, projectData }) {
         placeholder="Insira o valor total"
         onChange={handleChange}>
       </input>
-      {/* <Input
-        type="number"
-        text="Custo do serviço"
-        name="cost"
-        placeholder="Insira o valor total"
-        handleOnChange={handleChange}
-      /> */}
       <label htmlFor="description">Descrição do projeto</label>
       <input
         id='description'
@@ -63,13 +55,6 @@ function ServiceForm({ handleSubmit, btnText, projectData }) {
         placeholder="Descreva o serviço"
         onChange={handleChange}>
       </input>
-      {/* <Input
-        type="text"
-        text="Descrição do projeto"
-        name="description"
-        placeholder="Descreva o serviço"
-        handleOnChange={handleChange}
-      /> */}
       <SubmitButton text={btnText} />
     </form>
   )

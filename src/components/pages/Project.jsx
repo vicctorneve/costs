@@ -171,7 +171,11 @@ function Project(){
                         </div>
                      ) : (
                         <div className={styles.project_info}>
-                           <ProjectForm handleSubmit={editPost} btnText={"Concluir Edição"} projectData={project} />
+                           <ProjectForm 
+                              btnText={"Concluir Edição"} 
+                              handleSubmit={editPost} 
+                              projectData={project} 
+                           />
                         </div>
                      )}
                   </div>
